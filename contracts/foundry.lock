@@ -1,8 +1,14 @@
 {
-  "lib/fhevm": {
+  "lib/openzeppelin-contracts-upgradeable": {
     "tag": {
-      "name": "v0.10.2",
-      "rev": "36fd566bb9f5e6835ae40d93150af769f6bdc2c3"
+      "name": "v5.0.2",
+      "rev": "723f8cab09cdae1aca9ec9cc1cfa040c2d4b06c1"
+    }
+  },
+  "lib/forge-std": {
+    "tag": {
+      "name": "v1.12.0",
+      "rev": "7117c90c8cf6c68e5acce4f09a6b24715cea4de6"
     }
   },
   "lib/openzeppelin-contracts": {
@@ -11,10 +17,10 @@
       "rev": "fcbae5394ae8ad52d8e580a3477db99814b9d565"
     }
   },
-  "lib/forge-std": {
+  "lib/fhevm": {
     "tag": {
-      "name": "v1.12.0",
-      "rev": "7117c90c8cf6c68e5acce4f09a6b24715cea4de6"
+      "name": "v0.10.2",
+      "rev": "36fd566bb9f5e6835ae40d93150af769f6bdc2c3"
     }
   }
 }
