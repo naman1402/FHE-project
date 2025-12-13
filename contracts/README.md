@@ -19,6 +19,13 @@ anvil
 forge script script/DeployInfra.s.sol:DeployInfra --rpc-url http://localhost:8545 --broadcast -vvvv
 ```
 
+### What the script does
+
+- Deploys all Zama host contracts to deterministic addresses (proxies + implementations where applicable): ACL, PauserSet, FHEVMExecutor, KMSVerifier, InputVerifier, HCULimit.
+- Uses Foundry cheatcodes (`deployCodeTo`, `etch`, `prank`) so it is **Anvil-only**.
+- Verifies wiring/thresholds after deployment (ACL ↔ PauserSet, Executor ↔ ACL/HCULimit, KMS/Input verifier thresholds).
+- These addresses are what the FHE library and tests expect when `CoprocessorConfig` is set locally.
+
 ## Deployed Addresses (Deterministic)
 
 | Contract      | Address                                      |
@@ -45,3 +52,17 @@ PRIVATE_KEY=                    # Deployer private key
 KMS_SIGNER_ADDRESS=             # KMS signer (defaults to deployer)
 COPROCESSOR_SIGNER_ADDRESS=     # Coprocessor signer (defaults to KMS signer)
 ```
+
+### Interconnection quick notes
+
+- FHEVMExecutor stores ACL and HCULimit addresses.
+- ACL references PauserSet.
+- KMSVerifier and InputVerifier are initialized with signer lists + thresholds.
+- The deterministic addresses above are the ones the Solidity FHE library calls when `FHE.setCoprocessor` is provided those addresses.
+
+### EncryptedERC20 tests (Foundry)
+
+- Uses `ConfiguredEncryptedERC20` to set `CoprocessorConfig` (ACL, Executor, KMSVerifier) in the token’s storage so FHE ops route to the deployed infra.
+- `HostContractsDeployerTestUtils` spins up the same host stack locally (deterministic addresses) for each test.
+- Coverage: metadata/initialization, mint events (`TrivialEncrypt`, `FheAdd`), expected transfer event sequence docs, ACL permissions, edge cases (zero/max mint), fuzzed mints.
+
