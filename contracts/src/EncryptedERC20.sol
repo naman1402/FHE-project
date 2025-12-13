@@ -45,8 +45,7 @@ contract EncryptedERC20 {
     function mint(uint64 amount) public virtual {
         require(msg.sender == owner);
 
-        euint64 addAmount = FHE.asEuint64(amount);
-        _balances[owner] = FHE.add(_balances[owner], addAmount);
+        _balances[owner] = FHE.add(_balances[owner], amount);
         FHE.allowThis(_balances[owner]);
         FHE.allow(_balances[owner], owner);
         _totalSupply += amount;

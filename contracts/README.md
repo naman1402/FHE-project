@@ -45,4 +45,3 @@ PRIVATE_KEY=                    # Deployer private key
 KMS_SIGNER_ADDRESS=             # KMS signer (defaults to deployer)
 COPROCESSOR_SIGNER_ADDRESS=     # Coprocessor signer (defaults to KMS signer)
 ```
-
