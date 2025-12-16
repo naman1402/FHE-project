@@ -1,6 +1,6 @@
+use alloy::primitives::Address;
 use anyhow::Context;
 use std::env;
-use alloy::primitives::Address;
 
 #[derive(Debug, Clone)]
 pub struct Config {
