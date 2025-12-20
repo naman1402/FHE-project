@@ -66,3 +66,66 @@ COPROCESSOR_SIGNER_ADDRESS=     # Coprocessor signer (defaults to KMS signer)
 - `HostContractsDeployerTestUtils` spins up the same host stack locally (deterministic addresses) for each test.
 - Coverage: metadata/initialization, mint events (`TrivialEncrypt`, `FheAdd`), expected transfer event sequence docs, ACL permissions, edge cases (zero/max mint), fuzzed mints.
 
+---
+
+## E2E Coprocessor Test (Mock Events)
+
+Test the full flow: contracts emit FHE events → coprocessor captures them.
+
+### Terminal 1: Start Anvil
+
+```bash
+cd /home/naman/projects/fhe-project/contracts
+anvil --host 127.0.0.1 --port 8545
+```
+
+### Terminal 2: Start Coprocessor
+
+```bash
+cd /home/naman/projects/fhe-project/coprocessor
+
+# Update .env with mock addresses (will be printed after deploy)
+# For now, just start listening:
+cargo run
+```
+
+### Terminal 3: Deploy Mocks & Generate Events
+
+```bash
+cd /home/naman/projects/fhe-project/contracts
+
+# All-in-one: deploy mock contracts + generate FHE events
+forge script script/MockTest.s.sol:E2EMockTest --rpc-url http://127.0.0.1:8545 --broadcast
+```
+
+After running, update `coprocessor/.env` with the printed addresses:
+
+```env
+WEBSOCKET_URL=ws://127.0.0.1:8545
+TFHE_EXECUTOR_ADDRESS=<MockFHEVMExecutor address from output>
+ACL_ADDRESS=<MockACL address from output>
+```
+
+Then restart the coprocessor and run more events:
+
+```bash
+# Generate more events (use EXECUTOR address from above)
+EXECUTOR=0x... forge script script/MockTest.s.sol:GenerateEvents --rpc-url http://127.0.0.1:8545 --broadcast
+```
+
+### Expected Output
+
+The coprocessor should log captured events like:
+
+```
+[PARSER] FHE EXECUTOR EVENT DETECTED
+───────────────────────────────────────────────────────────────
+  Block:       X
+  Tx Hash:     "0x..."
+  Emitter:     0x...  (MockFHEVMExecutor address)
+  Topic0:      0x063ccd1...  (TrivialEncrypt)
+  Data bytes:  96
+```
+
+Events generated: `TrivialEncrypt`, `FheAdd`, `FheSub`, `FheMul`, `FheLe`, `FheIfThenElse`
+

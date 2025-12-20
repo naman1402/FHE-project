@@ -3,6 +3,12 @@ pragma solidity ^0.8.24;
 
 import {ebool, euint64, externalEuint64} from "fhevm/lib/EncryptedTypes.sol";
 import {FHE} from "fhevm/lib/FHE.sol";
+import {CoprocessorConfig} from "fhevm/lib/Impl.sol";
+import {
+    aclAdd,
+    fhevmExecutorAdd,
+    kmsVerifierAdd
+} from "@fhevm-host-contracts/addresses/FHEVMHostAddresses.sol";
 
 contract EncryptedERC20 {
     string private _name;
@@ -20,6 +26,12 @@ contract EncryptedERC20 {
         _name = name_;
         _symbol = symbol_;
         owner = msg.sender;
+                
+        FHE.setCoprocessor(CoprocessorConfig({
+            ACLAddress: aclAdd,
+            CoprocessorAddress: fhevmExecutorAdd,
+            KMSVerifierAddress: kmsVerifierAdd
+        }));
     }
 
 
