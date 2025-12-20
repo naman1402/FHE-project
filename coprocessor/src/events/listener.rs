@@ -25,12 +25,12 @@ pub async fn listen_to_events(config: &Config) -> Result<()> {
         .on_ws(ws)
         .await
         .context("Failed to connect to WebSocket endpoint")?;
-    println!("[Listener] ✅ Connected to WebSocket!");
+    println!("[Listener] Connected to WebSocket!");
     println!(
-        "[Listener] 📡 TFHE Executor address: {:?}",
+        "[Listener] TFHE Executor address: {:?}",
         config.tfhe_executor_address
     );
-    println!("[Listener] 🔒 ACL address: {:?}", config.acl_address);
+    println!("[Listener] ACL address: {:?}", config.acl_address);
 
     // Filter for events from the TFHE Executor contract
     let filter = Filter::new().address(config.tfhe_executor_address);
@@ -43,9 +43,6 @@ pub async fn listen_to_events(config: &Config) -> Result<()> {
 
     // Convert subscription to stream and process events
     let mut stream = sub.into_stream();
-
-    println!("[Listener] 🎯 Subscribing to events from TFHE Executor...");
-    println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
     println!("[Listener] Waiting for FHE events...");
     println!();
 

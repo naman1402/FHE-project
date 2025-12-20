@@ -43,7 +43,6 @@ pub fn log_executor_event(log: &Log) {
     let topic0 = &topics[0];
 
     println!();
-    println!("═══════════════════════════════════════════════════════════════");
     println!("[PARSER] FHE EXECUTOR EVENT DETECTED");
     println!("───────────────────────────────────────────────────────────────");
     println!("  Block:       {:?}", log.block_number.unwrap_or(0));
