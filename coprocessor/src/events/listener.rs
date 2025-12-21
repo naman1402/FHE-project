@@ -22,7 +22,7 @@ pub async fn listen_to_events(config: &Config) -> Result<()> {
     // Create WebSocket connection
     let ws = WsConnect::new(&config.websocket_url);
     let provider = ProviderBuilder::new()
-        .on_ws(ws)
+        .connect_ws(ws)
         .await
         .context("Failed to connect to WebSocket endpoint")?;
     println!("[Listener] Connected to WebSocket!");
