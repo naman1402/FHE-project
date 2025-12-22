@@ -14,6 +14,7 @@ pub struct KmsService {
 impl KmsService {
     pub async fn new(dir: PathBuf) -> Result<Self> {
         fs::create_dir_all(&dir).await?;
+        println!("[KmsService] init, dir: {:?}", dir);
         Ok(Self { dir })
     }
 
@@ -24,16 +25,19 @@ impl KmsService {
         save(&self.dir, "client_key", &client_key).await?;
         save(&self.dir, "server_key", &server_key).await?;
         save(&self.dir, "public_key", &public_key).await?;
+        println!("[KmsService] keys generated and stored");
         Ok(())
     }
 
     pub async fn load_public(&self) -> Result<CompactPublicKey> {
         let public_key: CompactPublicKey = load(&self.dir, "public_key").await?;
+        println!("[KmsService] public key loaded");
         Ok(public_key)
     }
 
     pub async fn load_server(&self) -> Result<ServerKey> {
         let server_key: ServerKey = load(&self.dir, "server_key").await?;
+        println!("[KmsService] server key loaded");
         Ok(server_key)
     }
 }
