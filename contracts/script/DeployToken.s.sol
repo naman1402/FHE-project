@@ -3,6 +3,7 @@ pragma solidity ^0.8.24;
 
 import {Script, console} from "forge-std/Script.sol";
 import {EncryptedERC20} from "../src/EncryptedERC20.sol";
+import {euint64} from "fhevm/lib/EncryptedTypes.sol";
 
 /**
  * @title DeployToken
@@ -63,5 +64,37 @@ contract MintToken is Script {
         vm.stopBroadcast();
 
         console.log("  After - Total Supply:", token.totalSupply());
+    }
+}
+
+/**
+ * @title TransferToken
+ * @notice Transfer the caller's full encrypted balance to a recipient
+ * @dev Uses the in-contract encrypted balance (already allowed to owner) so no external proof is needed.
+ */
+contract TransferToken is Script {
+    function run() external {
+        address tokenAddr = vm.envAddress("TOKEN");
+        address to = vm.envOr("TO", vm.addr(1)); 
+
+        uint256 privateKey = vm.envOr(
+            "PRIVATE_KEY",
+            uint256(0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80)
+        );
+        address sender = vm.addr(privateKey);
+
+        EncryptedERC20 token = EncryptedERC20(tokenAddr);
+
+        console.log("\nTransferring full balance from", sender, "to", to);
+        console.log("  Total Supply before:", token.totalSupply());
+
+        // Use sender's encrypted balance; it is already allowed to sender from mint
+        euint64 balance = token.balanceOf(sender);
+
+        vm.startBroadcast(privateKey);
+        token.transfer(to, balance);
+        vm.stopBroadcast();
+
+        console.log("  Total Supply after:", token.totalSupply());
     }
 }
