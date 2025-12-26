@@ -7,6 +7,7 @@ pub struct Config {
     pub websocket_url: String,
     pub tfhe_executor_address: Address,
     pub acl_address: Address,
+    pub kms_url: String,
 }
 
 pub fn load_config() -> Result<Config, anyhow::Error> {
@@ -19,10 +20,12 @@ pub fn load_config() -> Result<Config, anyhow::Error> {
     let acl_address = env::var("ACL_ADDRESS")
         .context("ACL_ADDRESS not set")?
         .parse::<Address>()?;
+    let kms_url = env::var("KMS_URL").unwrap_or_else(|_| "http://127.0.0.1:3000".to_string());
 
     Ok(Config {
         websocket_url,
         tfhe_executor_address,
         acl_address,
+        kms_url,
     })
 }

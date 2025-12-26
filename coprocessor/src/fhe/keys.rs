@@ -2,7 +2,7 @@ use anyhow::Result;
 use base64::engine::general_purpose::STANDARD;
 use base64::Engine;
 use reqwest::Client;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use tfhe::ServerKey;
 
 #[derive(Deserialize)]
