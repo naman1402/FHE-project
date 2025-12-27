@@ -65,37 +65,37 @@ pub static FHE_RAND: Lazy<B256> =
 pub static FHE_RAND_BOUNDED: Lazy<B256> =
     Lazy::new(|| event_sig("FheRandBounded(address,uint256,uint8,bytes16,bytes32)"));
 
-/// Check if a topic0 matches any known FHE event
-pub fn is_known_fhe_event(topic0: &B256) -> bool {
-    *topic0 == *FHE_ADD
-        || *topic0 == *FHE_SUB
-        || *topic0 == *FHE_MUL
-        || *topic0 == *FHE_DIV
-        || *topic0 == *FHE_REM
-        || *topic0 == *FHE_BIT_AND
-        || *topic0 == *FHE_BIT_OR
-        || *topic0 == *FHE_BIT_XOR
-        || *topic0 == *FHE_SHL
-        || *topic0 == *FHE_SHR
-        || *topic0 == *FHE_ROTL
-        || *topic0 == *FHE_ROTR
-        || *topic0 == *FHE_EQ
-        || *topic0 == *FHE_NE
-        || *topic0 == *FHE_GE
-        || *topic0 == *FHE_GT
-        || *topic0 == *FHE_LE
-        || *topic0 == *FHE_LT
-        || *topic0 == *FHE_MIN
-        || *topic0 == *FHE_MAX
-        || *topic0 == *FHE_NEG
-        || *topic0 == *FHE_NOT
-        || *topic0 == *TRIVIAL_ENCRYPT
-        || *topic0 == *CAST
-        || *topic0 == *FHE_IF_THEN_ELSE
-        || *topic0 == *VERIFY_INPUT
-        || *topic0 == *FHE_RAND
-        || *topic0 == *FHE_RAND_BOUNDED
-}
+
+// pub fn is_known_fhe_event(topic0: &B256) -> bool {
+//     *topic0 == *FHE_ADD
+//         || *topic0 == *FHE_SUB
+//         || *topic0 == *FHE_MUL
+//         || *topic0 == *FHE_DIV
+//         || *topic0 == *FHE_REM
+//         || *topic0 == *FHE_BIT_AND
+//         || *topic0 == *FHE_BIT_OR
+//         || *topic0 == *FHE_BIT_XOR
+//         || *topic0 == *FHE_SHL
+//         || *topic0 == *FHE_SHR
+//         || *topic0 == *FHE_ROTL
+//         || *topic0 == *FHE_ROTR
+//         || *topic0 == *FHE_EQ
+//         || *topic0 == *FHE_NE
+//         || *topic0 == *FHE_GE
+//         || *topic0 == *FHE_GT
+//         || *topic0 == *FHE_LE
+//         || *topic0 == *FHE_LT
+//         || *topic0 == *FHE_MIN
+//         || *topic0 == *FHE_MAX
+//         || *topic0 == *FHE_NEG
+//         || *topic0 == *FHE_NOT
+//         || *topic0 == *TRIVIAL_ENCRYPT
+//         || *topic0 == *CAST
+//         || *topic0 == *FHE_IF_THEN_ELSE
+//         || *topic0 == *VERIFY_INPUT
+//         || *topic0 == *FHE_RAND
+//         || *topic0 == *FHE_RAND_BOUNDED
+// }
 
 #[cfg(test)]
 mod tests {

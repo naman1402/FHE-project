@@ -19,7 +19,7 @@ pub fn parse_fhe_event(log: &Log) -> Option<FheOperation> {
     let metadata = EventMetadata {
         block_number: log.block_number.unwrap_or(0),
         tx_hash: log.transaction_hash,
-        log_index: log.log_index.unwrap_or(0),
+        // log_index: log.log_index.unwrap_or(0),
         // Caller is indexed (topic1), extract from topics if available
         caller: if topics.len() > 1 {
             Address::from_slice(&topics[1].as_slice()[12..])
@@ -403,12 +403,11 @@ fn short_tx(tx: Option<B256>) -> String {
     }
 }
 
-/// Legacy function for backward compatibility
-pub fn log_executor_event(log: &Log) {
-    match parse_fhe_event(log) {
-        Some(op) => log_fhe_operation(&op),
-        None => {
-            println!("[Parser] Failed to parse event from {:?}", log.address());
-        }
-    }
-}
+// pub fn log_executor_event(log: &Log) {
+//     match parse_fhe_event(log) {
+//         Some(op) => log_fhe_operation(&op),
+//         None => {
+//             println!("[Parser] Failed to parse event from {:?}", log.address());
+//         }
+//     }
+// }

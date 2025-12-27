@@ -20,7 +20,7 @@ pub fn load_config() -> Result<Config, anyhow::Error> {
     let acl_address = env::var("ACL_ADDRESS")
         .context("ACL_ADDRESS not set")?
         .parse::<Address>()?;
-    let kms_url = env::var("KMS_URL").unwrap_or_else(|_| "http://127.0.0.1:3000".to_string());
+    let kms_url = env::var("KMS_URL").unwrap_or_else(|_| "http://0.0.0.0:3000".to_string());
 
     Ok(Config {
         websocket_url,

@@ -49,14 +49,14 @@ impl EncryptedERC20Client {
         Ok(provider)
     }
 
-    pub async fn mint(&self, amount: u64) -> Result<()> {
-        let provider = self.provider().await?;
-        let contract = EncryptedERC20::new(self.contract_address, provider);
-        let tx = contract.mint(amount).send().await?;
-        let receipt = tx.watch().await?;
-        println!("[contracts] mint tx confirmed: {:?}", receipt);
-        Ok(())
-    }
+    // pub async fn mint(&self, amount: u64) -> Result<()> {
+    //     let provider = self.provider().await?;
+    //     let contract = EncryptedERC20::new(self.contract_address, provider);
+    //     let tx = contract.mint(amount).send().await?;
+    //     let receipt = tx.watch().await?;
+    //     println!("[contracts] mint tx confirmed: {:?}", receipt);
+    //     Ok(())
+    // }
 
     pub async fn transfer(
         &self,

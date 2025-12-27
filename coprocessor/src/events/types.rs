@@ -64,7 +64,7 @@ impl FheType {
 pub struct EventMetadata {
     pub block_number: u64,
     pub tx_hash: Option<B256>,
-    pub log_index: u64,
+    // pub log_index: u64,
     pub caller: Address,
 }
 
@@ -255,33 +255,33 @@ impl FheOperation {
         }
     }
 
-    /// Get the result handle if this operation produces one
-    pub fn result_handle(&self) -> Option<Handle> {
-        match self {
-            FheOperation::Binary(op) => Some(op.result),
-            FheOperation::Unary(op) => Some(op.result),
-            FheOperation::TrivialEncrypt(op) => Some(op.result),
-            FheOperation::Cast(op) => Some(op.result),
-            FheOperation::IfThenElse(op) => Some(op.result),
-            FheOperation::VerifyInput(op) => Some(op.result),
-            FheOperation::Rand(op) => Some(op.result),
-            FheOperation::RandBounded(op) => Some(op.result),
-            FheOperation::Unknown { .. } => None,
-        }
-    }
+    // Get the result handle if this operation produces one
+    // pub fn result_handle(&self) -> Option<Handle> {
+    //     match self {
+    //         FheOperation::Binary(op) => Some(op.result),
+    //         FheOperation::Unary(op) => Some(op.result),
+    //         FheOperation::TrivialEncrypt(op) => Some(op.result),
+    //         FheOperation::Cast(op) => Some(op.result),
+    //         FheOperation::IfThenElse(op) => Some(op.result),
+    //         FheOperation::VerifyInput(op) => Some(op.result),
+    //         FheOperation::Rand(op) => Some(op.result),
+    //         FheOperation::RandBounded(op) => Some(op.result),
+    //         FheOperation::Unknown { .. } => None,
+    //     }
+    // }
 
-    /// Get the caller address
-    pub fn caller(&self) -> Option<Address> {
-        match self {
-            FheOperation::Binary(op) => Some(op.metadata.caller),
-            FheOperation::Unary(op) => Some(op.metadata.caller),
-            FheOperation::TrivialEncrypt(op) => Some(op.metadata.caller),
-            FheOperation::Cast(op) => Some(op.metadata.caller),
-            FheOperation::IfThenElse(op) => Some(op.metadata.caller),
-            FheOperation::VerifyInput(op) => Some(op.metadata.caller),
-            FheOperation::Rand(op) => Some(op.metadata.caller),
-            FheOperation::RandBounded(op) => Some(op.metadata.caller),
-            FheOperation::Unknown { .. } => None,
-        }
-    }
+    // /// Get the caller address
+    // pub fn caller(&self) -> Option<Address> {
+    //     match self {
+    //         FheOperation::Binary(op) => Some(op.metadata.caller),
+    //         FheOperation::Unary(op) => Some(op.metadata.caller),
+    //         FheOperation::TrivialEncrypt(op) => Some(op.metadata.caller),
+    //         FheOperation::Cast(op) => Some(op.metadata.caller),
+    //         FheOperation::IfThenElse(op) => Some(op.metadata.caller),
+    //         FheOperation::VerifyInput(op) => Some(op.metadata.caller),
+    //         FheOperation::Rand(op) => Some(op.metadata.caller),
+    //         FheOperation::RandBounded(op) => Some(op.metadata.caller),
+    //         FheOperation::Unknown { .. } => None,
+    //     }
+    // }
 }

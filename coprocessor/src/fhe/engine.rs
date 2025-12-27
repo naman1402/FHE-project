@@ -309,11 +309,11 @@ impl Engine {
         Ok(())
     }
 
-    fn handle_rand(&self, op: &FheRand) -> Result<()> {
+    fn handle_rand(&self, _op: &FheRand) -> Result<()> {
         Ok(())
     }
 
-    fn handle_rand_bounded(&self, op: &FheRandBounded) -> Result<()> {
+    fn handle_rand_bounded(&self, _op: &FheRandBounded) -> Result<()> {
         Ok(())
     }
 

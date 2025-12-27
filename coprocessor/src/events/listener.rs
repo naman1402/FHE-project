@@ -60,7 +60,7 @@ pub async fn listen_to_events(config: &Config, engine: Option<Arc<Engine>>) -> R
     println!("[Listener] Waiting for FHE events...");
     println!();
 
-0   let mut event_count = 0;
+    let mut event_count = 0;
     let mut success_count = 0;
     let mut error_count = 0;
 
